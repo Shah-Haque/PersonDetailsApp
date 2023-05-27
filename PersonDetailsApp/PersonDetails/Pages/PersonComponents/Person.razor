@@ -1,0 +1,38 @@
+﻿@page  "/Person"
+
+<PageTitle>Create a new person</PageTitle>
+
+
+<h3>add a Person</h3>
+<EditForm Model ="Model" OnValidSubmit="ValidSubmission">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+  
+    <InputText id="FirstName" @bind-Value="Model.FirstName" placeholder="First Name" class="form-control" />
+    <br />
+    <InputText id="LastName" @bind-Value="Model.LastName" placeholder="Last Name" class="form-control" />
+    <br />
+    <button class="btn btn-primary" type="submit">Submit</button>
+</EditForm>
+
+<h3>List of People</h3>
+<ul>
+    @foreach (var person in People)
+    {
+        <li>@person.FirstName @person.LastName</li>
+    }
+</ul>
+
+
+@code 
+{
+    private PersonModel Model = new();
+
+    private List<PersonModel> People = new();
+
+    private void ValidSubmission()
+    {
+        People.Add(Model);
+        Model = new();
+    }
+}
